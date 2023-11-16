@@ -42,7 +42,7 @@ class Proprietaire{
     }
 
     public function getMdp(){
-        return $this->mdp
+        return $this->mdp;
     }
 
     public function setId($id){
