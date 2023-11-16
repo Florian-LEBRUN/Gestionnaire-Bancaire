@@ -52,6 +52,18 @@ class Gestionnaire_Compte{
     public function __construct($bdd){
         $this->setBDD($bdd);
     }
+
+    public function setBDD(PDO $bdd){
+        $this->_bdd=$bdd;
+    }
+
+    public function ajouter_compte(Compte $compte){
+        $sql = "INSERT INTO compte(id, IBAN, Solde) values ('";
+        $sql .= addslashes($compte->getId())."','";
+        $sql .= addslashes($compte->getIBAN())."','";
+        $sql .= addslashes($compte->getSolde())."')";
+        $this->_bdd->exec($sql);
+    }
     
 }
 
