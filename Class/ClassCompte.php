@@ -76,6 +76,16 @@ class Gestionnaire_Compte{
             return True;
         }
     }
+
+    public function modifier_solde(Compte $compte){
+        $id=$compte->getId();
+        $IBAN=$compte->getIBAN();
+        $solde=$compte->getSolde();
+        $sql ="UPDATE compte SET solde='".$solde."',";
+        $sql.= "IBAN='".$IBAN."' ";
+        $sql.= "WHERE id=".$id;
+        $request = $this->_bdd->query($sql);
+    }
 }
 
 ?>

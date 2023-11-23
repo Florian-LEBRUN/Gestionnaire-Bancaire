@@ -10,10 +10,12 @@ $proprio= new Proprietaire(['nom'=>"florian",'prenom'=>"Lebrun",
 'identifiant'=>"florian",'mdp'=>"azerty"]);
 $proprioManager = new Gestionnaire_Proprietaire($bdd);
 #$proprioManager->ajouter_proprietaire($proprio);
-if ($accountManager->connection_compte('florian','azerty')==True){
+/*if ($accountManager->connection_compte('florian','azerty')==True){
     echo 'connexion réussi';
 } else {
     echo 'echec de la connexion';
-}
+}*/
+$account->setSolde(111);
+$accountManager->modifier_solde($account);
 
 ?>
