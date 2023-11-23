@@ -9,11 +9,11 @@ $proprio= new Proprietaire(['nom'=>"florian",'prenom'=>"Lebrun",
 'date_de_naissance'=>"22/11/2003",'tel'=>"0677014633",'mail'=>"florian@gmail.com",
 'identifiant'=>"florian",'mdp'=>"azerty"]);
 $proprioManager = new Gestionnaire_Proprietaire($bdd);
-$proprioManager->ajouter_proprietaire($proprio);/*
-if ($accountManager->connection_compte()==True){
+#$proprioManager->ajouter_proprietaire($proprio);
+if ($accountManager->connection_compte('florian','azerty')==True){
     echo 'connexion réussi';
 } else {
     echo 'echec de la connexion';
-}*/
+}
 
 ?>
