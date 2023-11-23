@@ -86,6 +86,19 @@ class Gestionnaire_Compte{
         $sql.= "WHERE id=".$id;
         $request = $this->_bdd->query($sql);
     }
+
+    public function new_id(){
+        $continuer = True;
+        while ($continuer == True){
+            $newID=rand(1000000000,9999999999);
+            $sql = "SELECT * FROM compte WHERE id=".$newID;
+            $reponse = $this->_bdd->query($sql);
+            if ($reponse->rowCount()==0){
+                $continuer = false;
+            }
+        }
+        return $newID;
+    }
 }
 
 ?>

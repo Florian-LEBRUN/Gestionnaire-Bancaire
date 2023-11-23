@@ -127,6 +127,12 @@ class Gestionnaire_Proprietaire{
         $sql .= addslashes($proprietaire->getMdp())."')";
         $this->_bdd->exec($sql);
     }
+
+    public function delete_proprietaire($id){
+        $sql = "DELETE FROM proprietaire WHERE id=".$id;
+        $request = $this->_bdd->query($sql);
+        $delete = $request->fetch();
+    }
 }
 
 ?>

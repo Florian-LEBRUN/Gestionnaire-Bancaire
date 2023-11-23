@@ -15,7 +15,9 @@ $proprioManager = new Gestionnaire_Proprietaire($bdd);
 } else {
     echo 'echec de la connexion';
 }*/
-$account->setSolde(111);
-$accountManager->modifier_solde($account);
+#$account->setSolde(111);
+#$accountManager->modifier_solde($account);
+echo $accountManager->new_id();
+$proprioManager->delete_proprietaire(0);
 
 ?>
