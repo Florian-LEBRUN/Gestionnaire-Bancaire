@@ -115,6 +115,18 @@ class Gestionnaire_Proprietaire{
     public function setBDD(PDO $bdd){
         $this->_bdd = $bdd;
     }
+
+    public function ajouter_proprietaire(Proprietaire $proprietaire){
+        $sql = "INSERT INTO proprietaire(nom, prenom, date_de_naissance,tel,mail,identifiant,mdp) values ('";
+        $sql .= addslashes($proprietaire->getNom())."','";
+        $sql .= addslashes($proprietaire->getPrenom())."','";
+        $sql .= addslashes($proprietaire->getDate_de_naissance())."','";
+        $sql .= addslashes($proprietaire->getTel())."','";
+        $sql .= addslashes($proprietaire->getMail())."','";
+        $sql .= addslashes($proprietaire->getIdentifiant())."','";
+        $sql .= addslashes($proprietaire->getMdp())."')";
+        $this->_bdd->exec($sql);
+    }
 }
 
 ?>

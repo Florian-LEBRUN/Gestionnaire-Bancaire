@@ -65,6 +65,15 @@ class Gestionnaire_Compte{
         $this->_bdd->exec($sql);
     }
     
+    public function connection_compte($id,$mdp){
+        $sql = "SELECT * from proprietaire WHERE identifiant=".$id."and mdp=".$mdp;
+        $reponse = $bdd->query($sql);
+        if ($reponse->rowCount()==0){
+            return false;
+        } else {
+            return True;
+        }
+    }
 }
 
 ?>
