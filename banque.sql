@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `compte`;
 CREATE TABLE IF NOT EXISTS `compte` (
   `id` int NOT NULL,
   `IBAN` varchar(20) NOT NULL,
-  `Solde` varchar(20) NOT NULL,
+  `solde` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
