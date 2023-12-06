@@ -83,6 +83,16 @@ class Gestionnaire_Transaction {
     public function setBDD(PDO $bdd){
         $this->_bdd=$bdd;
     }
+
+    public function ajouter_transaction(Transaction $transaction){
+        $sql = "INSERT INTO transaction(id, montant, type, date, idUser) values ('";
+        $sql .= addslashes($transaction->getId())."','";
+        $sql .= addslashes($transaction->getMontant())."','";
+        $sql .= addslashes($transaction->getType())."','";
+        $sql .= addslashes($transaction->getDate())."','";
+        $sql .= addslashes($transaction->getIdUser())."')";
+        $this->_bdd->exec($sql);
+    }
 }
 
 ?>

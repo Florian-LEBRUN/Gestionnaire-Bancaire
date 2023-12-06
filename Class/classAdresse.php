@@ -4,7 +4,7 @@ class Adresse {
     private $numero;
     private $rue;
     private $codePostal;
-    private $pays
+    private $pays;
 
     public function getId(){
         return $this->id;
@@ -53,7 +53,7 @@ class Adresse {
         }
     }
 
-    public function getPays($pays){
+    public function setPays($pays){
         if (is_string($pays)){
             $this->pays=htmlspecialchars($pays);
         }
@@ -74,7 +74,7 @@ class Adresse {
 }
 
 class Gestionnaire_Adresse {
-    private $_bdd
+    private $_bdd;
 
     public function __construct($bdd){
         $this->setBDD($bdd);
@@ -82,6 +82,22 @@ class Gestionnaire_Adresse {
 
     public function setBDD(PDO $bdd){
         $this->_bdd=$bdd;
+    }
+
+    public function ajouter_adresse(Adresse $adresse){
+        $sql = "INSERT INTO adresse (id, numero, rue, codePostal, pays) values ('";
+        $sql .= addslashes($adresse->getId())."','";
+        $sql .= addslashes($adresse->getNumero())."','";
+        $sql .= addslashes($adresse->getRue())."','";
+        $sql .= addslashes($adresse->getCodePostal())."','";
+        $sql .= addslashes($adresse->getPays())."')";
+        $this->_bdd->exec($sql);
+    }
+
+    public function delete_adresse($id){
+        $sql = "DELETE FROM adresse WHERE id=".$id;
+        $request = $this->_bdd->query($sql);
+        $request->fetch();
     }
 }
 

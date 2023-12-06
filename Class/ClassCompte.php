@@ -73,6 +73,10 @@ class Gestionnaire_Compte{
         if ($reponse->rowCount()==0){
             return false;
         } else {
+            $reponse=$reponse->fetchAll(PDO::FETCH_ASSOC);
+            $reponse= $reponse[0];
+            var_dump($reponse);
+            //$_SESSION['id'] = $reponse['id'];
             return True;
         }
     }
@@ -98,6 +102,22 @@ class Gestionnaire_Compte{
             }
         }
         return $newID;
+    }
+
+    public function afficher_compte($id){
+        $sql = "SELECT * FROM compte WHERE id=".$id;
+        $solde = $this->_bdd->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        var_dump($solde);
+        return $solde;
+    }
+
+    public function generateIBAN($id) {
+        $countryCode = "FR";
+        if (!preg_match('/^[A-Z]{2}$/', $countryCode)) {
+            throw new Exception("Invalid country code.");
+        }
+        $iban = $countryCode . '00' . $id;
+        return $iban;
     }
 }
 

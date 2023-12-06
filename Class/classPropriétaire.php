@@ -131,7 +131,14 @@ class Gestionnaire_Proprietaire{
     public function delete_proprietaire($id){
         $sql = "DELETE FROM proprietaire WHERE id=".$id;
         $request = $this->_bdd->query($sql);
-        $delete = $request->fetch();
+        $request->fetch();
+    }
+
+    public function afficher_proprietaire($id){
+        $sql = "SELECT * FROM proprietaire WHERE id=".$id;
+        $proprietaire = ($this->_bdd->query($sql)->fetchAll(PDO::FETCH_ASSOC));
+        $proprietaire = new Proprietaire($proprietaire[0]);
+        return $proprietaire;
     }
 }
 
