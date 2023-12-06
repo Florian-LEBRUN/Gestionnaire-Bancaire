@@ -75,8 +75,7 @@ class Gestionnaire_Compte{
         } else {
             $reponse=$reponse->fetchAll(PDO::FETCH_ASSOC);
             $reponse= $reponse[0];
-            var_dump($reponse);
-            //$_SESSION['id'] = $reponse['id'];
+            $_SESSION['id'] = $reponse['id'];
             return True;
         }
     }
@@ -106,9 +105,20 @@ class Gestionnaire_Compte{
 
     public function afficher_compte($id){
         $sql = "SELECT * FROM compte WHERE id=".$id;
-        $solde = $this->_bdd->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($solde);
+        $solde = $this->_bdd->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $solde;
+    }
+
+    public function afficher_compteByIBAN($IBAN){
+        $sql = "SELECT * FROM compte WHERE IBAN=".$IBAN;
+        $request = $this->_bdd->query($sql)->fetch(PDO::FETCH_ASSOC);
+        return $request;
+    }
+
+    public function recuperer_iban($id){
+        $sql = "SELECT IBAN FROM compte WHERE id=".$id;
+        $IBAN = $this->_bdd->query($sql)->fetch(PDO::FETCH_ASSOC);
+        return $IBAN;
     }
 
     public function generateIBAN($id) {

@@ -9,7 +9,6 @@ if (isset($_POST['inscription'])) {
     $_SESSION['proprietaire']= new Proprietaire(['id'=>$accountManager->new_id(),'nom'=>$_POST['nom'],'prenom'=>$_POST["prenom"],
     'date_de_naissance'=>$_POST["date_de_naissance"],'tel'=>$_POST['tel'],'mail'=>$_POST['mail'],
    'identifiant'=>$_POST["identifiant"],'mdp'=>$_POST['mdp'], ]);
-   echo $_SESSION['proprietaire']->getId();
    header("Location: adresse.php");
 }
 

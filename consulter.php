@@ -8,7 +8,7 @@ if (isset($_POST['virement'])){
 }
 $bdd= new PDO('mysql:host=localhost;dbname=banque;charset=utf8','root','');
 $accountManager=new Gestionnaire_Compte($bdd);
-
+$_SESSION['soldeActuel']=$accountManager->afficher_compte($_SESSION['proprietaire']->getId())['solde'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

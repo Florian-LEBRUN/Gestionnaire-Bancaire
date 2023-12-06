@@ -2,9 +2,9 @@
 class Transaction {
     private $id;
     private $montant;
-    private $type;
     private $date;
-    private $idUser;
+    private $emeteur;
+    private $recepteur;
 
     public function getId(){
         return $this->id;
@@ -14,17 +14,18 @@ class Transaction {
         return $this->montant;
     }
 
-    public function getType(){
-        return $this->type;
-    }
-
     public function getDate(){
         return $this->date;
     }
 
-    public function getIdUser(){
-        return $this->idUser;
+    public function getEmeteur(){
+        return $this->emeteur;
     }
+
+    public function getRecepteur(){
+        return $this->recepteur;
+    }
+
 
     public function setId($id){
         $id=(int)$id;
@@ -40,11 +41,6 @@ class Transaction {
         }
     }
 
-    public function setType($type){
-        if(is_string($type)){
-            $this->type=$type;
-        }
-    }
 
     public function setDate($date){
         if(is_string($date)){
@@ -52,12 +48,20 @@ class Transaction {
         }
     }
 
-    public function setIdUser($idUser){
-        $idUser=(int)$idUser;
-        if($idUser>0){
-            $this->idUser=$idUser;
+    public function setEmeteur($emeteur){
+        $emeteur = (int)$emeteur;
+        if($emeteur>0){
+            $this->emeteur=$emeteur;
         }
     }
+
+    public function setRecepteur($recepteur){
+        $recepteur = (int)$recepteur;
+        if($recepteur>0){
+            $this->recepteur=$recepteur;
+        }
+    }
+
 
     public function __construct(array $data){
         $this->hydrate($data);
@@ -85,12 +89,12 @@ class Gestionnaire_Transaction {
     }
 
     public function ajouter_transaction(Transaction $transaction){
-        $sql = "INSERT INTO transaction(id, montant, type, date, idUser) values ('";
+        $sql = "INSERT INTO transaction(id, montant, date, emeteur, recepteur) values ('";
         $sql .= addslashes($transaction->getId())."','";
         $sql .= addslashes($transaction->getMontant())."','";
-        $sql .= addslashes($transaction->getType())."','";
         $sql .= addslashes($transaction->getDate())."','";
-        $sql .= addslashes($transaction->getIdUser())."')";
+        $sql .= addslashes($transaction->getEmeteur())."','";
+        $sql .= addslashes($transaction->getRecepteur())."')";
         $this->_bdd->exec($sql);
     }
 }

@@ -117,7 +117,8 @@ class Gestionnaire_Proprietaire{
     }
 
     public function ajouter_proprietaire(Proprietaire $proprietaire){
-        $sql = "INSERT INTO proprietaire(nom, prenom, date_de_naissance,tel,mail,identifiant,mdp) values ('";
+        $sql = "INSERT INTO proprietaire(id,nom, prenom, date_de_naissance,tel,mail,identifiant,mdp) values ('";
+        $sql .= addslashes($proprietaire->getId())."','";
         $sql .= addslashes($proprietaire->getNom())."','";
         $sql .= addslashes($proprietaire->getPrenom())."','";
         $sql .= addslashes($proprietaire->getDate_de_naissance())."','";

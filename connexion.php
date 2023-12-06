@@ -9,7 +9,7 @@ if (isset($_POST['connection'])){
     if ($accountManager->connection_compte($_POST['identifiant'],$_POST["mdp"])==true){
         $proprioManager = new Gestionnaire_Proprietaire($bdd);
         $_SESSION['proprietaire'] = $proprioManager->afficher_proprietaire($_SESSION['id']);
-        //header("Location: consulter.php");
+        header("Location: consulter.php");
     }
 }
 
