@@ -14,7 +14,8 @@ if (isset($_POST['virement'])){
     'emeteur'=>$accountManager->recuperer_iban($_SESSION['proprietaire']->getId())['IBAN'],
     'recepteur'=>$_POST['IBAN']]);
     var_dump ($accountManager->recuperer_solde($ibanEmet)['solde']-$_POST['montant']);
-    $transactionManager->ajouter_transaction($_POST['montant'], date('d/m/Y'),$accountManager->recuperer_iban($_SESSION['proprietaire']->getId())['IBAN'], $_POST['IBAN'] );
+    $transactionManager->ajouter_transactionbyObject($transaction);
+    //$transactionManager->ajouter_transaction($_POST['montant'], date('d/m/Y'),$accountManager->recuperer_iban($_SESSION['proprietaire']->getId())['IBAN'], $_POST['IBAN'] );
     $accountManager->modifier_solde($ibanEmet,$accountManager->recuperer_solde($ibanEmet)['solde']-$_POST['montant']);
     try {
         $account = $accountManager->afficher_compteByIBAN($_POST['IBAN']);

@@ -91,6 +91,11 @@ class Gestionnaire_Transaction {
         $this->_bdd->exec($sql);
     }
 
+    public function ajouter_transactionbyObject(Transaction $transaction){
+        $sql = "INSERT INTO transaction(montant, date, emeteur, recepteur) values (".$transaction->getMontant().",'".$transaction->getDate()."' ,'".$transaction->getEmeteur()."', '".$transaction->getRecepteur()."')";
+        $this->_bdd->exec($sql);
+    }
+
     public function historiqueTrans($IBAN){
         $sql = "SELECT * From transaction WHERE emeteur='$IBAN' or recepteur='$IBAN' ORDER BY date DESC";
         
