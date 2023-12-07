@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 16 nov. 2023 à 10:37
+-- Généré le : jeu. 07 déc. 2023 à 14:57
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.1.13
 
@@ -31,7 +31,7 @@ USE `banque`;
 
 DROP TABLE IF EXISTS `adresse`;
 CREATE TABLE IF NOT EXISTS `adresse` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `numero` int NOT NULL,
   `rue` text NOT NULL,
   `codePostal` int NOT NULL,
@@ -47,9 +47,9 @@ CREATE TABLE IF NOT EXISTS `adresse` (
 
 DROP TABLE IF EXISTS `compte`;
 CREATE TABLE IF NOT EXISTS `compte` (
-  `id` int NOT NULL,
+  `id` bigint NOT NULL,
   `IBAN` varchar(20) NOT NULL,
-  `solde` varchar(20) NOT NULL,
+  `solde` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -61,14 +61,15 @@ CREATE TABLE IF NOT EXISTS `compte` (
 
 DROP TABLE IF EXISTS `proprietaire`;
 CREATE TABLE IF NOT EXISTS `proprietaire` (
-  `id` int NOT NULL,
+  `id` bigint NOT NULL,
   `nom` text NOT NULL,
   `prenom` text NOT NULL,
   `date_de_naissance` text NOT NULL,
   `tel` int NOT NULL,
   `mail` text NOT NULL,
   `identifiant` text NOT NULL,
-  `mdp` text NOT NULL
+  `mdp` text NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -81,9 +82,9 @@ DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE IF NOT EXISTS `transaction` (
   `id` int NOT NULL AUTO_INCREMENT,
   `montant` float NOT NULL,
-  `type` text NOT NULL,
   `date` text NOT NULL,
-  `idUser` int NOT NULL,
+  `emeteur` varchar(20) NOT NULL,
+  `recepteur` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 COMMIT;
