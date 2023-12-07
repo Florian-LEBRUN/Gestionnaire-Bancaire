@@ -132,6 +132,15 @@ class Gestionnaire_Compte{
         $iban = $countryCode . '00' . $id;
         return $iban;
     }
+
+    public function cloturerCompte($id){
+        $sqlProprio = "DELETE FROM proprietaire WHERE id=$id";
+        $sqlAdresse = "DELETE FROM adresse WHERE id=$id";
+        $sqlCompte = "DELETE FROM compte WHERE id=$id";
+        $this->_bdd->query($sqlProprio);
+        $this->_bdd->query($sqlAdresse);
+        $this->_bdd->query($sqlCompte);
+    }
 }
 
 ?>
