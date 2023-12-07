@@ -80,13 +80,8 @@ class Gestionnaire_Compte{
         }
     }
 
-    public function modifier_solde(Compte $compte){
-        $id=$compte->getId();
-        $IBAN=$compte->getIBAN();
-        $solde=$compte->getSolde();
-        $sql ="UPDATE compte SET solde='".$solde."',";
-        $sql.= "IBAN='".$IBAN."' ";
-        $sql.= "WHERE id=".$id;
+    public function modifier_solde($IBAN,$solde){
+        $sql ="UPDATE compte SET solde='".$solde."' WHERE IBAN='".$IBAN."'";
         $request = $this->_bdd->query($sql);
     }
 
@@ -119,6 +114,14 @@ class Gestionnaire_Compte{
         $sql = "SELECT IBAN FROM compte WHERE id=".$id;
         $IBAN = $this->_bdd->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $IBAN;
+    }
+
+    public function recuperer_solde($iban){
+        $sql = "SELECT solde FROM compte WHERE IBAN='$iban'";
+        echo $sql;
+        $solde = $this->_bdd->query($sql)->fetch(PDO::FETCH_ASSOC);
+        
+        return $solde;
     }
 
     public function generateIBAN($id) {

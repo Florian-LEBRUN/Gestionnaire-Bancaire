@@ -7,23 +7,24 @@ if (isset($_POST['virement'])){
     $bdd= new PDO('mysql:host=localhost;dbname=banque;charset=utf8','root','');
     $accountManager=new Gestionnaire_Compte($bdd);
     $transactionManager=new Gestionnaire_Transaction($bdd);
-    var_dump ($_POST);
-
+    $ibanEmet=$accountManager->recuperer_iban($_SESSION['proprietaire']->getId())['IBAN'];
+    var_dump ($_POST['IBAN']);
+    var_dump($accountManager->recuperer_iban($_SESSION['proprietaire']->getId())['IBAN']);
     $transaction = new Transaction(['montant'=>$_POST['montant'], 'date'=>date('d/m/Y'),
-    'emeteur'=>$accountManager->recuperer_iban($_SESSION['proprietaire']->getId()),
+    'emeteur'=>$accountManager->recuperer_iban($_SESSION['proprietaire']->getId())['IBAN'],
     'recepteur'=>$_POST['IBAN']]);
-    $transactionManager->ajouter_transaction($transaction);
-    $account = new Compte(['id'=>$_SESSION['proprietaire']->getId(),'IBAN'=>$accountManager->recuperer_iban($_SESSION['proprietaire']->getId())[0],
-    'solde'=>$_SESSION['soldeActuel']-$_POST['montant']]);
-    $accountManager->modifier_solde($account);
+    var_dump ($accountManager->recuperer_solde($ibanEmet)['solde']-$_POST['montant']);
+    $transactionManager->ajouter_transaction($_POST['montant'], date('d/m/Y'),$accountManager->recuperer_iban($_SESSION['proprietaire']->getId())['IBAN'], $_POST['IBAN'] );
+    $accountManager->modifier_solde($ibanEmet,$accountManager->recuperer_solde($ibanEmet)['solde']-$_POST['montant']);
     try {
         $account = $accountManager->afficher_compteByIBAN($_POST['IBAN']);
+        var_dump($account);
     } catch (Exception $e){
         header('Location: virementOk.php?id=2');
     }
-    $account = new Compte(['id'=>$account['id'],'IBAN'=>$account['IBAN'],
-    'solde'=>$account['solde']+$_POST['montant']]);
-    $accountManager->modifier_solde($account);
+    echo $accountManager->recuperer_solde($_POST['IBAN']);
+    $accountManager->modifier_solde($_POST['IBAN'],$accountManager->recuperer_solde($_POST['IBAN'])['solde']+$_POST['montant']);
+    echo $accountManager->recuperer_solde($_POST['IBAN']);
     header('Location: virementOk.php?id=1');
 }
 ?>

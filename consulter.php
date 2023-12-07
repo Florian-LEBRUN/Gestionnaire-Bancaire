@@ -6,6 +6,9 @@ if (!isset($_SESSION)) {
 if (isset($_POST['virement'])){
     header('Location: virement.php');
 }
+if (isset($_POST['historique'])){
+    header('Location: historique.php');
+}
 $bdd= new PDO('mysql:host=localhost;dbname=banque;charset=utf8','root','');
 $accountManager=new Gestionnaire_Compte($bdd);
 $_SESSION['soldeActuel']=$accountManager->afficher_compte($_SESSION['proprietaire']->getId())['solde'];
@@ -24,6 +27,7 @@ $_SESSION['soldeActuel']=$accountManager->afficher_compte($_SESSION['proprietair
             <h2>iban : <?php echo$accountManager->afficher_compte($_SESSION['proprietaire']->getId())['IBAN'];?></h2>
             <h1>Solde : <?php echo$accountManager->afficher_compte($_SESSION['proprietaire']->getId())['solde'];?></h1>
             <input type="submit" value="faire un virement" id="submit" name="virement">
+            <input type="submit" value="consulter historique" id="submit" name="historique">
         </form>
     </div>
 </body>
