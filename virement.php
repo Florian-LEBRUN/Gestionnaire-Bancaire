@@ -7,11 +7,13 @@ if (isset($_POST['virement'])){
     $bdd= new PDO('mysql:host=localhost;dbname=banque;charset=utf8','root','');
     $accountManager=new Gestionnaire_Compte($bdd);
     $transactionManager=new Gestionnaire_Transaction($bdd);
+    var_dump ($_POST);
+
     $transaction = new Transaction(['montant'=>$_POST['montant'], 'date'=>date('d/m/Y'),
     'emeteur'=>$accountManager->recuperer_iban($_SESSION['proprietaire']->getId()),
     'recepteur'=>$_POST['IBAN']]);
     $transactionManager->ajouter_transaction($transaction);
-    $account = new Compte(['id'=>$_SESSION['proprietaire']->getId(),'IBAN'=>$accountManager->recuperer_iban($_SESSION['proprietaire']->getId()),
+    $account = new Compte(['id'=>$_SESSION['proprietaire']->getId(),'IBAN'=>$accountManager->recuperer_iban($_SESSION['proprietaire']->getId())[0],
     'solde'=>$_SESSION['soldeActuel']-$_POST['montant']]);
     $accountManager->modifier_solde($account);
     try {
